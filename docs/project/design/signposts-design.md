@@ -38,7 +38,9 @@ The YAML is the map; the docs are the territory.
 ## Terminology
 
 Signposts is a workflow definition language for structured knowledge navigation.
-The format uses a four-level hierarchy:
+The format uses a hierarchical structure with docs as reusable content:
+
+### Structural Hierarchy
 
 - **Workflow** — the complete knowledge flow map, defined in a `signposts.yml` file.
   This is the top-level structure representing an entire domain (e.g., “Python to Rust
@@ -50,13 +52,25 @@ The format uses a four-level hierarchy:
   Area”, “Reference”). Areas organize both display and traversal, providing conceptual
   grouping for the paths they contain.
   Defined in the YAML with the `areas:` key.
+  Areas may reference docs for overviews or decision criteria.
 
 - **Path** — an ordered sequence of steps through documentation.
   The primary unit of work within an area.
-  Paths represent focused tasks or phases (e.g., “Assess”, “Research”, “Port”).
+  Paths represent focused tasks or phases (e.g., “Assess”, “Research”, “Port”). Paths
+  reference docs for background reading and context, and contain steps for actionable
+  work.
 
-- **Step** — a single piece of documentation to work through (a docspec).
-  Steps are the atomic units of progress tracking within a path.
+- **Step** — a reference to a specific piece of documentation (a docspec, optionally
+  with a locspec). Steps are the atomic units of progress tracking within a path.
+  Each step points to a doc or a section within a doc.
+
+### Supporting Concepts
+
+- **Doc** — a piece of documentation content, referenced by a docspec.
+  Docs are the actual content (markdown files, URLs, or inline refs).
+  Docs can be reused across multiple areas, paths, and steps.
+  A path may reference several docs for context, and its steps reference specific docs
+  or sections to work through.
 
 - **Route** — a conditional hint for jumping to another path or step, within the current
   area or across areas.
